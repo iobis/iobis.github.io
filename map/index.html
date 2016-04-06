@@ -1,0 +1,149 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/Leaflet.draw/dist/leaflet.draw.css" />
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+</head>
+<body ng-controller="mapcontroller">
+
+<leaflet id="map" map="map"></leaflet>
+
+<div id="wrapper" class="container" ng-cloak>
+
+		<div class="col-md-6">
+			<h4>Layers</h4>
+			<p>Switch layers on or off.</p>
+			<div class="input-group">
+				<button type="button" id="eezbutton" class="btn btn-default" ng-click="toggleeez()">EEZ</button>&nbsp;
+				<button type="button" id="eezbutton" class="btn btn-default" ng-click="toggleiho()">IHO</button>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<h4>WKT</h4>
+			<p>Generate WKT (points not yet included).</p>
+			<div class="input-group">
+				<button type="button" id="wktbutton" class="btn btn-default" ng-click="getwkt()">WKT</button>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<h4>Coordinates</h4>
+			<p>Add a location using decimal longitude and latitude.</p>
+			<div class="input-group">
+				<input class="form-control" id="searchfield" ng-enter="plot()" ng-model="coord" placeholder="Enter coordinates">
+				<span class="input-group-btn">
+					<button type="button" id="plotbutton" class="btn btn-default" ng-click="plot()">Add</button>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<h4>Geocoding</h4>
+			<p>Find locations by name and add them to the locations list.</p>
+			<div class="input-group">
+				<input class="form-control" id="coding" ng-enter="geocode()" ng-model="input" placeholder="Enter location name">
+				<span class="input-group-btn">
+					<button type="button" id="codebutton" class="btn btn-default" ng-click="geocode()">Submit</button>
+					<button type="button" id="codebutton" class="btn btn-default" ng-click="clearcode()">Clear</button>
+				</span>
+			</div>
+
+			<p>
+				<table class="table table-condensed">
+					<thead>
+			            <tr>
+			                <th>Type</th>
+			                <th>Name</th>
+			                <th>Longitude</th>
+			                <th>Latitude</th>
+			            </tr>
+		            </thead>
+		            <tbody>
+		            <tr class="point" ng-repeat="g in gazetteer" ng-click="add(g.longitude, g.latitude, g.preferredGazetteerName)">
+		                <td>{{g.placeType}}</td>
+		                <td>{{g.preferredGazetteerName}}</td>
+		                <td>{{g.longitude | number : 4}}</td>
+		                <td>{{g.latitude | number : 4}}</td>
+		            </tr>
+		            <tr ng-if="!(gazetteer.length > 0) && !loading"><td class="loading">No results</td></tr>
+		            <tr ng-if="loading"><td class="loading">Loading...</td></tr>
+		            </tbody>
+	            </table>
+            </p>
+
+		</div>
+
+		<div class="col-md-12">
+			<h4>Locations</h4>
+			<p>
+				<table class="table table-condensed">
+					<thead>
+			            <tr>
+			            	<th></th>
+			                <th>Longitude</th>
+			                <th>Latitude</th>
+			                <th>Radius</th>
+			                <th>Name</th>
+			                <th>EEZ</th>
+			                <th>IHO</th>
+			                <th></th>
+			            </tr>
+		            </thead>
+		            <tbody>
+		            <tr ng-repeat="l in locations" >
+		            	<td>
+							<span class="fa fa-square-o" ng-if="l.type == 'polygon'"></span>
+							<span class="fa fa-angle-up" ng-if="l.type == 'line'"></span>
+							<span class="fa fa-crosshairs" ng-if="l.type == 'point'"></span>
+		            	</td>
+		                <td>{{l.lon | number: 4}}</td>
+		                <td>{{l.lat | number: 4}}</td>
+		                <td>{{l.radius | number: 0}}</td>
+		                <td>{{l.name}}</td>
+		                <td>{{l.eez}}</td>
+		                <td>{{l.iho}}</td>
+		                <td><a href="#" ng-click="del(l)"><span class="glyphicon glyphicon-remove"></span></a></td>
+		            </tr>
+		            <tr ng-if="!(locations.length > 0)"><td class="loading">No locations</td></tr>
+		            </tbody>
+	            </table>
+            </p>
+		</div>
+
+</div>
+
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">WKT</h4>
+			</div>
+			<div class="modal-body">
+				<p>{{w}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/leaflet/dist/leaflet.js"></script>
+<script src="bower_components/Leaflet.draw/dist/leaflet.draw-src.js"></script>
+<script src="bower_components/leafcutter/leafcutter.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="geo.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

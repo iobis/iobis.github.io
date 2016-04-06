@@ -1,0 +1,28 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+textarea {
+	resize: none;
+}
+
+leaflet {
+	margin-left: 30%;
+	display: block;
+	min-height: 100%;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+
+#wrapper {
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 0px;
+	background-color: "#ffffff";
+	width: 30%;
+	padding: 10px;
+}

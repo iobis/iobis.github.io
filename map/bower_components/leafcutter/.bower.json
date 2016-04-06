@@ -1,0 +1,14 @@
+{
+  "name": "leafcutter",
+  "homepage": "https://github.com/pieterprovoost/leafcutter",
+  "_release": "8f99ba2f9a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8f99ba2f9aa846afc213035d2b0cb7ba1de59f61"
+  },
+  "_source": "http://github.com/pieterprovoost/leafcutter.git",
+  "_target": "*",
+  "_originalSource": "http://github.com/pieterprovoost/leafcutter.git",
+  "_direct": true
+}

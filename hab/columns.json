@@ -1,0 +1,589 @@
+var columns = [
+  {
+    "name": "Identifiers",
+    "columns": [
+      {
+        "name": "Event ID",
+        "definition": "row number, duplicate same number in case of multiple toxins leave all other fields blank if they stay the same",
+        "type": "numeric",
+        "example": "549",
+        "dwc": "eventID"
+      },
+      {
+        "name": "HAB region",
+        "definition": "HAB region number (from list)",
+        "type": "numeric",
+        "example": "3",
+        "dwc": "recordedBy"
+      },
+      {
+        "name": "Recorded by",
+        "definition": "Editor name, format: last name, first name(s)",
+        "type": "text",
+        "example": "Doe, John",
+        "dwc": "recordedBy"
+      },
+      {
+        "name": "Modified",
+        "definition": "Date last modified, format: YYYY-MM-DD",
+        "type": "date",
+        "example": "2013-04-15",
+        "dwc": "modified"
+      },
+      {
+        "name": "Main reference",
+        "definition": "Bibliographic reference, a DOI can be appended using \"doi:\"",
+        "type": "text",
+        "example": "Harrison, W. G. 1973. Nitrate reductase activity during a dinoflagellate bloom. Limnol. Oceanogr. 18:45765. doi: 10.1111/j.1748-7692.2008.00268.x",
+        "dwc": "associatedReferences"
+      },
+      {
+        "name": "Additional references",
+        "definition": "Bibliographic references, separated by a \"|\", a DOI can be appended using \"doi:\". References referring to the sampling protocol should be added in the \"Sampling protocol field\"",
+        "type": "text",
+        "example": "Harrison, W. G. 1973. Nitrate reductase activity during a dinoflagellate bloom. Limnol. Oceanogr. 18:45765. doi: 10.1111/j.1748-7692.2008.00268.x | Mann, H., Mann, S. & Fyfe, W. S. 1987. Aragonite crystals in Spirogyra sp. (Chlorophyta). J. Phycol. 23:506<d0>9. doi: 10.1111/j.1748-7692.2008.00268.x",
+        "dwc": "associatedReferences"
+      },
+      {
+        "name": "HAEDAT event URL",
+        "definition": "",
+        "type": "url",
+        "example": "http://haedat.iode.org/viewEvent.php?eventID=4854",
+        "dwc": "references"
+      }
+    ]
+  },
+  {
+    "name": "Date",
+    "columns": [
+      {
+        "name": "Event date",
+        "definition": "The date-time or interval during which an Event occurred.  Use an encoding scheme ISO 8601:2004(E): \"1963-03-08T14:07-0600\" is 8 Mar 1963 2:07pm in the time zone six hours earlier than UTC, \"2009-02-20T08:40Z\" is 20 Feb 2009 8:40am UTC, \"1809-02-12\" is 12 Feb 1809, \"1906-06\" is Jun 1906, \"1971\" is just that year, \"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z\" is the interval between 1 Mar 2007 1pm UTC and 11 May 2008 3:30pm UTC, \"2007-11-13/15\" is the interval between 13 Nov 2007 and 15 Nov 2007",
+        "type": "date",
+        "example": "2007-03-01T13:00:00Z/2007-03-11T15:30:00Z",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "Verbatim event date",
+        "definition": "",
+        "type": "text",
+        "example": "",
+        "dwc": "verbatimEventDate"
+      },
+      {
+        "name": "Start date: year",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "Start date: month",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "Start date: day",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "End date: year",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "End date: month",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      },
+      {
+        "name": "End date: day",
+        "definition": "",
+        "type": "numeric",
+        "example": "",
+        "dwc": "eventDate"
+      }
+    ]
+  },
+  {
+    "name": "Taxon",
+    "columns": [
+      {
+        "name": "Scientific name",
+        "definition": "Scientific name without authorship",
+        "type": "list",
+        "example": "Alexandrium minutum",
+        "dwc": "scientificName"
+      },
+      {
+        "name": "Organism quantity",
+        "definition": "A number or enumeration value for the quantity of organisms",
+        "type": "numeric",
+        "example": "12,5",
+        "dwc": "organismQuantity"
+      },
+      {
+        "name": "Organism quantity type",
+        "definition": "The type of quantification system used for the quantity of organisms: individuals, cells, %biomass, ..",
+        "type": "text",
+        "example": "%biomass",
+        "dwc": "organismQuantityType"
+      }
+    ]
+  },
+  {
+    "name": "Sampling",
+    "columns": [
+      {
+        "name": "Sample size value",
+        "definition": "A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample ",
+        "type": "numeric",
+        "example": "1"
+      },
+      {
+        "name": "Sample size unit",
+        "definition": "The unit of measurement of the size (time duration, length, area, or volume) of a sample in a sampling event: metre, square metre, cubic metre, litre, <c9>",
+        "type": "text",
+        "example": "Litre"
+      },
+      {
+        "name": "Sampling protocol",
+        "definition": "The name of sampling gear or, reference to, or description of the method or protocol used during an Event: plankton net, reference+DOI, <c9>",
+        "type": "text",
+        "example": "twin-NORPAC net (mesh size: 330 _m and 100 _m, mouth diameter: 0.45 m)"
+      },
+      {
+        "name": "Sampling effort",
+        "definition": "The amount of effort expended during an Event.",
+        "type": "text",
+        "example": "1 hour, 100 metres, <c9>"
+      },
+      {
+        "name": "Remarks",
+        "definition": "Comments or notes about the Event",
+        "type": "text",
+        "example": "e.g. Funded by.., name expedition, name cruise,.."
+      }
+    ]
+  },
+  {
+    "name": "Bloom",
+    "columns": [
+      {
+        "name": "Associated taxa",
+        "definition": "In case of benthic bloom, add scientific name of macroalgae used for the collection of the microalgal epiphyte",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Remarks",
+        "definition": "Comments or notes about the Occurrence",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Water discoloration",
+        "definition": "Water discoloration: yes, no or ND",
+        "type": "list",
+        "example": "yes"
+      },
+      {
+        "name": "Water discoloration remarks",
+        "definition": "",
+        "type": "text",
+        "example": "red"
+      },
+      {
+        "name": "Mucus",
+        "definition": "coloured or transparent",
+        "type": "list",
+        "example": "coloured"
+      },
+      {
+        "name": "Mass mortalities",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "High phyto concentrations",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Foam/mucilage on the coast",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Additional remarks",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      }
+    ]
+  },
+  {
+    "name": "Toxicity",
+    "columns": [
+      {
+        "name": "Toxicity detected",
+        "definition": "yes or no",
+        "type": "list",
+        "example": "yes"
+      },
+      {
+        "name": "Toxin",
+        "definition": "pick from drop-down list",
+        "type": "list",
+        "example": "OA-D8 (Okadaic Acid)"
+      },
+      {
+        "name": "Syndrome",
+        "definition": "pick from drop-down list",
+        "type": "list",
+        "example": "DSP"
+      },
+      {
+        "name": "Transvector",
+        "definition": "Transvector scientific name",
+        "type": "text",
+        "example": "Mytilus edulis"
+      },
+      {
+        "name": "Measurement method",
+        "definition": "toxin dectection method used: HPLC, LC-MS, ELISA, bioassay, <c9>",
+        "type": "text",
+        "example": "HPLC"
+      },
+      {
+        "name": "Measurement Value",
+        "definition": "toxin measurement value",
+        "type": "numeric",
+        "example": "85"
+      },
+      {
+        "name": "Measurement Unit",
+        "definition": "toxin measurement unit: picogram, gram",
+        "type": "text",
+        "example": "picogram"
+      },
+      {
+        "name": "Additional remarks",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      }
+    ]
+  },
+    {
+    "name": "Impact",
+    "columns": [
+      {
+        "name": "Economic losses",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Planktonic life",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Benthic life",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Shellfish",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Natural fish",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Aquaculture fish",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Aquatic mammals",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Birds",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Other terrestrial",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Humans",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Other",
+        "definition": "yes, no, ND or text",
+        "type": "text",
+        "example": ""
+      }
+    ]
+  },
+  {
+    "name": "Location",
+    "columns": [
+      {
+        "name": "Longitude",
+        "definition": "Decimal degrees",
+        "type": "numeric",
+        "example": "-12,35"
+      },
+      {
+        "name": "Latitude",
+        "definition": "Decimal degrees",
+        "type": "numeric",
+        "example": "54,32"
+      },
+      {
+        "name": "Coordinate uncertainty",
+        "definition": "Coordinate uncertainty in meters",
+        "type": "numeric",
+        "example": ""
+      },
+      {
+        "name": "Footprint WKT",
+        "definition": "A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the Location: e.g. bounding box (longitude=10, latitude=20) and (longitude=11, latitude=21) in footprintWKT = POLYGON ((10 20, 11 20, 11 21, 10 21, 10 20))",
+        "type": "WKT",
+        "example": "POLYGON ((10 20, 11 20, 11 21, 10 21, 10 20))"
+      },
+      {
+        "name": "Water body",
+        "definition": "The name of the water body in which the Location occurs.",
+        "type": "text",
+        "example": "English Channel"
+      },
+      {
+        "name": "Country",
+        "definition": "Only fill in if inside EEZ",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "State/province",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "County",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Municipality",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Island",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Island group",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Locality",
+        "definition": "The specific description of the place.",
+        "type": "text",
+        "example": "Oostende Harbour"
+      },
+      {
+        "name": "Location ID",
+        "definition": "gazetteer ID",
+        "type": "text",
+        "example": "MRGID=5476"
+      },
+      {
+        "name": "Location according to",
+        "definition": "gazetteer source",
+        "type": "text",
+        "example": "Marineregions.Org"
+      },
+      {
+        "name": "Habitat",
+        "definition": "A category or description of the habitat in which the Event occurred",
+        "type": "text",
+        "example": "intertidal"
+      },
+      {
+        "name": "Oligotrophic/Eutrophic",
+        "definition": "",
+        "type": "list",
+        "example": "Oligotrophic",
+        "dwc": "locationRemarks"
+      },
+      {
+        "name": "Substrate",
+        "definition": "Organic, inorganic, animals, macroalgae, phanerogames, etc.",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Minimum depth",
+        "definition": "Minimum depth in meters",
+        "type": "numeric",
+        "example": "0"
+      },
+      {
+        "name": "Maximum depth",
+        "definition": "Maximum depth in meters",
+        "type": "numeric",
+        "example": "2"
+      },
+      {
+        "name": "Verbatim depth",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Surface/subsurface/whole water column",
+        "definition": "surface, subsurface, whole water column, benthic",
+        "type": "list",
+        "example": "surface",
+        "dwc": "occurrenceRemarks"
+      },
+      {
+        "name": "Remarks",
+        "definition": "Location remarks",
+        "type": "text",
+        "example": ""
+      }
+    ]
+  },
+  {
+    "name": "Environmental",
+    "columns": [
+      {
+        "name": "Temperature: value",
+        "definition": "Temperature in degrees Celcius",
+        "type": "numeric",
+        "example": "18"
+      },
+      {
+        "name": "Temperature: method",
+        "definition": "",
+        "type": "text",
+        "example": "SBE 37-IM MicroCAT"
+      },
+      {
+        "name": "Salinity: value",
+        "definition": "Salinity on the PSS",
+        "type": "numeric",
+        "example": "25"
+      },
+      {
+        "name": "Salinity: method",
+        "definition": "Name sensor",
+        "type": "text",
+        "example": "SBE 37-IM MicroCAT"
+      },
+      {
+        "name": "Nutrient measurements: type",
+        "definition": "Name of variable measured",
+        "type": "text",
+        "example": "Nitrate"
+      },
+      {
+        "name": "Nutrient measurements: value",
+        "definition": "",
+        "type": "numeric",
+        "example": "2"
+      },
+      {
+        "name": "Nutrient measurements: units",
+        "definition": "Unit of measured variable value",
+        "type": "text",
+        "example": "micromol.kg-1"
+      },
+      {
+        "name": "Nutrient measurements: method",
+        "definition": "Name of sensor",
+        "type": "text",
+        "example": "NAS3 "
+      },
+      {
+        "name": "Other measurements: type",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Other measurements: value",
+        "definition": "",
+        "type": "numeric",
+        "example": ""
+      },
+      {
+        "name": "Other measurements: units",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Other measurements: method",
+        "definition": "",
+        "type": "text",
+        "example": ""
+      },
+      {
+        "name": "Runoff",
+        "definition": "yes/no/river name/urban runoff",
+        "type": "text",
+        "dwc": "locationRemarks"
+      },
+      {
+        "name": "Remarks",
+        "definition": "",
+        "type": "text",
+        "dwc": "locationRemarks"
+      }
+    ]
+  }
+];

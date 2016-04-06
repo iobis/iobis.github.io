@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>HAB template documentation</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body ng-cloak class="ng-cloak">
+<div id="wrapper">
+<div id="page-content-wrapper">
+<div class="container-fluid" ng-controller="habcontroller">
+
+<h3>HAB template documentation</h3>
+
+<p>Download the template <a href="https://github.com/iobis/habtemplate/blob/master/template.xlsx?raw=true">here</a>. For feedback and questions please contact <a href="p.provoost@unesco.org">p.provoost@unesco.org</a>.</p>
+
+<div ng-repeat="cat in columns track by $index">
+	<h4>{{ cat.name }}</h4>
+	<table class="table table-striped">
+		<thead>
+			<th>Name</th>
+			<th>Definition</th>
+			<th>Type</th>
+			<th>Example</th>
+			<th nowrap>Darwin Core</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="col in cat.columns track by $index">
+				<td nowrap>{{ col.name }}</td>
+				<td>{{ col.definition }}</td>
+				<td>
+					<span class="label label-default" ng-class="{ 'label-info': col.type=='numeric', 'label-danger': col.type=='date', 'label-warning': col.type=='list' }">{{ col.type }}</span>
+				</td>
+				<td>{{ col.example }}</td>
+				<td>{{ col.dwc }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+<script src="columns.json"></script>
+<script src="app.js"></script>
+</body>
+</html>
