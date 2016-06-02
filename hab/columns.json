@@ -3,49 +3,63 @@ var columns = [
     "name": "Identifiers",
     "columns": [
       {
-        "name": "Event ID",
-        "definition": "row number, duplicate same number in case of multiple toxins leave all other fields blank if they stay the same",
+        "name": "ID",
+        "definition": "Record ID. If a record has multiple rows (in case of multiple toxins for example), the ID can optionally be repeated in each of these rows.",
         "type": "numeric",
         "example": "549",
         "dwc": "eventID"
       },
       {
         "name": "HAB region",
-        "definition": "HAB region number (from list)",
+        "definition": "HAB region number (from list).",
         "type": "numeric",
         "example": "3",
         "dwc": "recordedBy"
       },
       {
+        "name": "Reported name",
+        "definition": "Reported taxon name.",
+        "type": "text",
+        "example": "Alexandrium minutum",
+        "dwc": "scientificName"
+      },
+      {
+        "name": "Valid name",
+        "definition": "Valid taxon name according to editor, cross check with WoRMS.",
+        "type": "list",
+        "example": "Alexandrium minutum",
+        "dwc": "scientificName"
+      },
+      {
         "name": "Recorded by",
-        "definition": "Editor name, format: last name, first name(s)",
+        "definition": "Editor name, format: last name, first name(s).",
         "type": "text",
         "example": "Doe, John",
         "dwc": "recordedBy"
       },
       {
-        "name": "Modified",
-        "definition": "Date last modified, format: YYYY-MM-DD",
+        "name": "Last modified",
+        "definition": "Date last modified, format: YYYY-MM-DD.",
         "type": "date",
         "example": "2013-04-15",
         "dwc": "modified"
       },
       {
         "name": "Main reference",
-        "definition": "Bibliographic reference, a DOI can be appended using \"doi:\"",
+        "definition": "Bibliographic reference, a DOI can be appended using \"doi:\".",
         "type": "text",
         "example": "Harrison, W. G. 1973. Nitrate reductase activity during a dinoflagellate bloom. Limnol. Oceanogr. 18:45765. doi: 10.1111/j.1748-7692.2008.00268.x",
         "dwc": "associatedReferences"
       },
       {
         "name": "Additional references",
-        "definition": "Bibliographic references, separated by a \"|\", a DOI can be appended using \"doi:\". References referring to the sampling protocol should be added in the \"Sampling protocol field\"",
+        "definition": "Bibliographic references, separated by a \"|\", a DOI can be appended using \"doi:\". References referring to the sampling protocol should be added in the \"Sampling protocol field\".",
         "type": "text",
         "example": "Harrison, W. G. 1973. Nitrate reductase activity during a dinoflagellate bloom. Limnol. Oceanogr. 18:45765. doi: 10.1111/j.1748-7692.2008.00268.x | Mann, H., Mann, S. & Fyfe, W. S. 1987. Aragonite crystals in Spirogyra sp. (Chlorophyta). J. Phycol. 23:506<d0>9. doi: 10.1111/j.1748-7692.2008.00268.x",
         "dwc": "associatedReferences"
       },
       {
-        "name": "HAEDAT event URL",
+        "name": "HAEDAT URL",
         "definition": "",
         "type": "url",
         "example": "http://haedat.iode.org/viewEvent.php?eventID=4854",
@@ -57,85 +71,71 @@ var columns = [
     "name": "Date",
     "columns": [
       {
-        "name": "Event date",
-        "definition": "The date-time or interval during which an Event occurred.  Use an encoding scheme ISO 8601:2004(E): \"1963-03-08T14:07-0600\" is 8 Mar 1963 2:07pm in the time zone six hours earlier than UTC, \"2009-02-20T08:40Z\" is 20 Feb 2009 8:40am UTC, \"1809-02-12\" is 12 Feb 1809, \"1906-06\" is Jun 1906, \"1971\" is just that year, \"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z\" is the interval between 1 Mar 2007 1pm UTC and 11 May 2008 3:30pm UTC, \"2007-11-13/15\" is the interval between 13 Nov 2007 and 15 Nov 2007",
-        "type": "date",
-        "example": "2007-03-01T13:00:00Z/2007-03-11T15:30:00Z",
-        "dwc": "eventDate"
-      },
-      {
-        "name": "Verbatim event date",
-        "definition": "",
-        "type": "text",
-        "example": "",
-        "dwc": "verbatimEventDate"
-      },
-      {
         "name": "Start date: year",
-        "definition": "",
+        "definition": "Start date of the occurrence, year.",
         "type": "numeric",
-        "example": "",
+        "example": "2004",
         "dwc": "eventDate"
       },
       {
         "name": "Start date: month",
-        "definition": "",
+        "definition": "Start date of the occurrence, month.",
         "type": "numeric",
-        "example": "",
+        "example": "12",
         "dwc": "eventDate"
       },
       {
         "name": "Start date: day",
-        "definition": "",
+        "definition": "Start date of the occurrence, day.",
         "type": "numeric",
-        "example": "",
+        "example": "28",
         "dwc": "eventDate"
       },
       {
         "name": "End date: year",
-        "definition": "",
+        "definition": "End date of the occurrence, year.",
         "type": "numeric",
-        "example": "",
+        "example": "2004",
         "dwc": "eventDate"
       },
       {
         "name": "End date: month",
-        "definition": "",
+        "definition": "End date of the occurrence, month.",
         "type": "numeric",
-        "example": "",
+        "example": "12",
         "dwc": "eventDate"
       },
       {
         "name": "End date: day",
-        "definition": "",
+        "definition": "End date of the occurrence, day.",
         "type": "numeric",
-        "example": "",
+        "example": "28",
         "dwc": "eventDate"
+      },
+      {
+        "name": "Verbatim event date",
+        "definition": "Date of the occurrence, as reported in the publication.",
+        "type": "text",
+        "example": "June 2010",
+        "dwc": "verbatimEventDate"
       }
     ]
   },
   {
-    "name": "Taxon",
+    "name": "Quantity",
     "columns": [
       {
-        "name": "Scientific name",
-        "definition": "Scientific name without authorship",
-        "type": "list",
-        "example": "Alexandrium minutum",
-        "dwc": "scientificName"
-      },
-      {
-        "name": "Organism quantity",
-        "definition": "A number or enumeration value for the quantity of organisms",
+        "name": "Value",
+        "definition": "",
         "type": "numeric",
-        "example": "12,5",
+        "example": "12.5",
         "dwc": "organismQuantity"
       },
       {
-        "name": "Organism quantity type",
-        "definition": "The type of quantification system used for the quantity of organisms: individuals, cells, %biomass, ..",
+        "name": "Unit",
+        "definition": "",
         "type": "text",
-        "example": "%biomass",
+        "example": "cells per ml",
         "dwc": "organismQuantityType"
       }
     ]
@@ -144,34 +144,34 @@ var columns = [
     "name": "Sampling",
     "columns": [
       {
-        "name": "Sample size value",
-        "definition": "A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample ",
+        "name": "Sample size: value",
+        "definition": "A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample.",
         "type": "numeric",
         "example": "1"
       },
       {
-        "name": "Sample size unit",
-        "definition": "The unit of measurement of the size (time duration, length, area, or volume) of a sample in a sampling event: metre, square metre, cubic metre, litre, <c9>",
+        "name": "Sample size: unit",
+        "definition": "The unit of measurement of the size (time duration, length, area, or volume) of a sample.",
         "type": "text",
         "example": "Litre"
       },
       {
         "name": "Sampling protocol",
-        "definition": "The name of sampling gear or, reference to, or description of the method or protocol used during an Event: plankton net, reference+DOI, <c9>",
+        "definition": "The name of sampling gear or, reference to, or description of the method or protocol used during sampling: plankton net, reference+DOI, etc.",
         "type": "text",
         "example": "twin-NORPAC net (mesh size: 330 _m and 100 _m, mouth diameter: 0.45 m)"
       },
       {
         "name": "Sampling effort",
-        "definition": "The amount of effort expended during an Event.",
+        "definition": "The amount of effort expended during sampling.",
         "type": "text",
-        "example": "1 hour, 100 metres, <c9>"
+        "example": "1 hour, 100 metres, etc."
       },
       {
         "name": "Remarks",
-        "definition": "Comments or notes about the Event",
+        "definition": "Comments or notes about the sampling.",
         "type": "text",
-        "example": "e.g. Funded by.., name expedition, name cruise,.."
+        "example": ""
       }
     ]
   },
@@ -179,25 +179,19 @@ var columns = [
     "name": "Bloom",
     "columns": [
       {
-        "name": "Associated taxa",
-        "definition": "In case of benthic bloom, add scientific name of macroalgae used for the collection of the microalgal epiphyte",
+        "name": "Macroalgal species",
+        "definition": "In case of benthic bloom, add scientific name of macroalgae used for the collection of the microalgal epiphyte.",
         "type": "text",
         "example": ""
       },
       {
-        "name": "Remarks",
-        "definition": "Comments or notes about the Occurrence",
-        "type": "text",
-        "example": ""
-      },
-      {
-        "name": "Water discoloration",
-        "definition": "Water discoloration: yes, no or ND",
+        "name": "Water discoloration: presence",
+        "definition": "yes, no or ND",
         "type": "list",
         "example": "yes"
       },
       {
-        "name": "Water discoloration remarks",
+        "name": "Water discoloration: remarks",
         "definition": "",
         "type": "text",
         "example": "red"
@@ -227,8 +221,8 @@ var columns = [
         "example": ""
       },
       {
-        "name": "Additional remarks",
-        "definition": "",
+        "name": "Remarks",
+        "definition": "Comments or notes about the bloom.",
         "type": "text",
         "example": ""
       }
@@ -262,26 +256,26 @@ var columns = [
         "example": "Mytilus edulis"
       },
       {
-        "name": "Measurement method",
-        "definition": "toxin dectection method used: HPLC, LC-MS, ELISA, bioassay, <c9>",
+        "name": "Toxin measurement: method",
+        "definition": "Toxin dectection method used: HPLC, LC-MS, ELISA, bioassay, etc.",
         "type": "text",
         "example": "HPLC"
       },
       {
-        "name": "Measurement Value",
-        "definition": "toxin measurement value",
+        "name": "Toxin measurement: value",
+        "definition": "",
         "type": "numeric",
         "example": "85"
       },
       {
-        "name": "Measurement Unit",
-        "definition": "toxin measurement unit: picogram, gram",
+        "name": "Toxin measurement: unit",
+        "definition": "",
         "type": "text",
         "example": "picogram"
       },
       {
-        "name": "Additional remarks",
-        "definition": "",
+        "name": "Remarks",
+        "definition": "Remarks or notes about the toxicity.",
         "type": "text",
         "example": ""
       }
@@ -363,25 +357,25 @@ var columns = [
     "columns": [
       {
         "name": "Longitude",
-        "definition": "Decimal degrees",
+        "definition": "Longitude in decimal degrees.",
         "type": "numeric",
-        "example": "-12,35"
+        "example": "-12.35"
       },
       {
         "name": "Latitude",
-        "definition": "Decimal degrees",
+        "definition": "Latitude in decimal degrees.",
         "type": "numeric",
-        "example": "54,32"
+        "example": "54.32"
       },
       {
         "name": "Coordinate uncertainty",
-        "definition": "Coordinate uncertainty in meters",
+        "definition": "Coordinate uncertainty in meters.",
         "type": "numeric",
-        "example": ""
+        "example": "100"
       },
       {
-        "name": "Footprint WKT",
-        "definition": "A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the Location: e.g. bounding box (longitude=10, latitude=20) and (longitude=11, latitude=21) in footprintWKT = POLYGON ((10 20, 11 20, 11 21, 10 21, 10 20))",
+        "name": "WKT",
+        "definition": "A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the location. The example given here corresponds to a bounding box longitude 10° to 11° and latitude 20° to 21°.",
         "type": "WKT",
         "example": "POLYGON ((10 20, 11 20, 11 21, 10 21, 10 20))"
       },
@@ -435,19 +429,19 @@ var columns = [
       },
       {
         "name": "Location ID",
-        "definition": "gazetteer ID",
+        "definition": "The ID of the location in a gazetteer.",
         "type": "text",
         "example": "MRGID=5476"
       },
       {
         "name": "Location according to",
-        "definition": "gazetteer source",
+        "definition": "The gazetteer used.",
         "type": "text",
         "example": "Marineregions.Org"
       },
       {
         "name": "Habitat",
-        "definition": "A category or description of the habitat in which the Event occurred",
+        "definition": "A category or description of the habitat in which the taxon occurred",
         "type": "text",
         "example": "intertidal"
       },
@@ -466,21 +460,15 @@ var columns = [
       },
       {
         "name": "Minimum depth",
-        "definition": "Minimum depth in meters",
+        "definition": "Minimum depth of the occurrence in meters.",
         "type": "numeric",
         "example": "0"
       },
       {
         "name": "Maximum depth",
-        "definition": "Maximum depth in meters",
+        "definition": "Maximum depth of the occurrence in meters.",
         "type": "numeric",
         "example": "2"
-      },
-      {
-        "name": "Verbatim depth",
-        "definition": "",
-        "type": "text",
-        "example": ""
       },
       {
         "name": "Surface/subsurface/whole water column",
@@ -490,8 +478,14 @@ var columns = [
         "dwc": "occurrenceRemarks"
       },
       {
+        "name": "Verbatim depth",
+        "definition": "Depth as reported in the publication.",
+        "type": "text",
+        "example": ""
+      },
+      {
         "name": "Remarks",
-        "definition": "Location remarks",
+        "definition": "Remarks regarding the location.",
         "type": "text",
         "example": ""
       }
@@ -537,7 +531,7 @@ var columns = [
         "example": "2"
       },
       {
-        "name": "Nutrient measurements: units",
+        "name": "Nutrient measurements: unit",
         "definition": "Unit of measured variable value",
         "type": "text",
         "example": "micromol.kg-1"
@@ -561,7 +555,7 @@ var columns = [
         "example": ""
       },
       {
-        "name": "Other measurements: units",
+        "name": "Other measurements: unit",
         "definition": "",
         "type": "text",
         "example": ""
