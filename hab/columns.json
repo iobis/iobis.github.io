@@ -31,6 +31,13 @@ var columns = [
         "dwc": "scientificName"
       },
       {
+        "name": "Identification status",
+        "definition": "Flag indicating the quality of the identification. This uses the following vocabulary: (0) The name of the record has not been checked by any authority - includes temporary sorting determinations (1) The name of the record determined by comparison with other named plants (2) The name of the record determined by a taxonomist or by other competent persons using herbarium and/or library and/or documented living material (3) The name of the plant determined by taxonomist engaged in systematic revision of the group (4) The record is part of type gathering or propagated from type material by asexual methods.",
+        "type": "list",
+        "example": "1",
+        "dwc": "identificationVerificationStatus"
+      },
+      {
         "name": "Recorded by",
         "definition": "Editor name, format: last name, first name(s).",
         "type": "text",
