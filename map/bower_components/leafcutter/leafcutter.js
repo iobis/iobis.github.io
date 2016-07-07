@@ -12,7 +12,7 @@ leafcutter.directive("leaflet", function(leafcuttermaps) {
 				attributionControl: false,
 				zoomControl: false
 			}).setView([30, 20], 2);
-			var baselayer = L.tileLayer("http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", {}).addTo(scope.map);
+			var baselayer = L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}", {}).addTo(scope.map);
 			var zoom = L.control.zoom({position: "topleft"}).addTo(scope.map);
 			leafcuttermaps.setMap(attrs.map, {
 				map: scope.map,
