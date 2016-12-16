@@ -9,12 +9,13 @@ var tree = [{"id":167},{"id":238},{"id":253},{"id":165},{"id":161},{"id":315},{"
 
 var process = function(array, parentid) {
 
-	array.forEach(function(node) {
-		console.log("parent id: " + parentid + ", child id: " + node.id);
+	for (var i = 0; i < array.length; i++) {
+		var node = array[i];
+		console.log("parent id: " + parentid + ", child id: " + node.id, ", order: " + i);
 		if (node.children) {
 			process(node.children, node.id);
 		}
-	});
+	}
 
 };
 
