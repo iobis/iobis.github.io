@@ -18,6 +18,10 @@ leaflet {
 	display: none !important;
 }
 
+#wktcontent {
+	width: 100%;
+}
+
 .loading {
 	font-style: italic;
 }
