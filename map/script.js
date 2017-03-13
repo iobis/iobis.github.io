@@ -1,3 +1,5 @@
+new Clipboard("#copybutton");
+
 var app = angular.module("app", ['leafcutter']);
 
 var trunc = function(x) {
@@ -173,10 +175,29 @@ app.controller("mapcontroller", function($scope, $filter, leafcuttermaps, geocod
 	};
 
 	var wkt = function() {
+
 		var wkt = "";
 		var strings = [];
+
+		// points
+
+		var points = [];
+		for (l in $scope.locations) {
+			if ($scope.locations[l].type == "point") {
+				points.push($filter('number')($scope.locations[l].lon, decimals) + " " + $filter('number')($scope.locations[l].lat, decimals));
+			}
+		}
+		if (points.length > 1) {
+			strings.push("MULTIPOINT (" + points.join(", ") + ")");
+		} else if (points.length == 1) {
+			strings.push(wkt = "POINT (" + points[0] + ")");
+		}
+
+		// polygons
+
 		var polygons = [];
 		var layers = polygongroup._layers;
+
 		for (l in layers) {
 			var points = [];
 			for (ll in layers[l]._latlngs) {
@@ -190,8 +211,12 @@ app.controller("mapcontroller", function($scope, $filter, leafcuttermaps, geocod
 		} else if (polygons.length == 1) {
 			strings.push(wkt = "POLYGON " + polygons[0]);
 		}
+
+		// lines
+
 		var lines = [];
 		var layers = linegroup._layers;
+
 		for (l in layers) {
 			var points = [];
 			for (ll in layers[l]._latlngs) {
@@ -204,10 +229,13 @@ app.controller("mapcontroller", function($scope, $filter, leafcuttermaps, geocod
 		} else if (lines.length == 1) {
 			strings.push(wkt = "LINESTRING " + lines[0]);
 		}
+
+		// combine
+
 		if (strings.length == 1) {
 			wkt = strings[0];
 		} else if (strings.length > 1) {
-			wkt = "GEOMETRYCOLLECTION (" + strings.join(", ") + ")";
+			wkt = "GEOMETRYCOLLECTION(" + strings.join(",") + ")";
 		}
 		return wkt;
 	};

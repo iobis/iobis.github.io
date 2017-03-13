@@ -27,7 +27,7 @@
 
 		<div class="col-md-6">
 			<h4>WKT</h4>
-			<p>Generate WKT (points not yet included).</p>
+			<p>Generate WKT.</p>
 			<div class="input-group">
 				<button type="button" id="wktbutton" class="btn btn-default" ng-click="getwkt()">WKT</button>
 			</div>
@@ -127,9 +127,10 @@
 				<h4 class="modal-title">WKT</h4>
 			</div>
 			<div class="modal-body">
-				<p>{{w}}</p>
+				<p id="wktcontent">{{w}}</p>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-clipboard-target="#wktcontent" id="copybutton">Copy</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div><!-- /.modal-content -->
@@ -142,6 +143,7 @@
 <script src="bower_components/Leaflet.draw/dist/leaflet.draw-src.js"></script>
 <script src="bower_components/leafcutter/leafcutter.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.6.0/dist/clipboard.min.js"></script>
 <script src="geo.js"></script>
 <script src="script.js"></script>
 
