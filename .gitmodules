@@ -1,3 +1,6 @@
 [submodule "tree"]
 	path = tree
 	url = https://github.com/iobis/event-tree.git
+[submodule "plotter"]
+	path = plotter
+	url = https://github.com/iobis/plotter
