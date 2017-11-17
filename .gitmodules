@@ -4,6 +4,3 @@
 [submodule "plotter"]
 	path = plotter
 	url = https://github.com/iobis/plotter
-[submodule "map"]
-	path = map
-	url = https://github.com/iobis/map
